@@ -65,11 +65,11 @@ function get_draftees_from_row_nodes(nodes: any[] ): Draftee[] {
 }
 
 function convert_draftees_to_csv(draftees: Draftee[]): string {
-    let csv = "";
+    let lines = [];
 
     for (const {topicTitleText, topicTitleHref, topicStarterHref, topicStarterText} of draftees) {
-        csv += `"${topicTitleText}", "${topicTitleHref}", "${topicStarterText}", "${topicStarterHref}"\n`
+        lines.push(`"${topicTitleText}", "${topicTitleHref}", "${topicStarterText}", "${topicStarterHref}"`)
     }
 
-    return csv
+    return lines.join("\n")
 }

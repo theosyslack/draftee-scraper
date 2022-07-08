@@ -12,30 +12,34 @@ interface Draftee {
 }
 
 (async () => {
-    console.log("Starting...")
+    log("Starting...")
     const browser = await chromium.launch();
 
-    console.log("Opening Browser...")
+    log("Opening Browser...")
     const page = await browser.newPage();
 
     // 
-    console.log(`Opening page... [ ${url} ]`)
+    log(`Opening page... [ ${url} ]`)
     await page.goto(url);
     const draftees  = await page.$$eval(".topic-row td:nth-of-type(3)", get_draftees_from_row_nodes);
 
     //
-    console.log(`Found ${draftees.length} draftees.`)
+    log(`Found ${draftees.length} draftees.`)
     const csv = convert_draftees_to_csv(draftees)
 
     //
-    console.log(`Saving to [ ${fileName} ]`)
+    log(`Saving to [ ${fileName} ]`)
     await fs.writeFile(fileName, csv);
-    console.log(`Successfully wrote [ ${fileName} ]!`)
+    log(`Successfully wrote [ ${fileName} ]!`)
 
     //
-    console.log("Exiting. Play ball!  ")
+    log("Done. Play ball!")
     await browser.close();
 })();
+
+function log(message: string) {
+    console.log(`[⚾️] ${message}`)
+}
 
 
 function get_draftees_from_row_nodes(nodes: any[] ): Draftee[] {

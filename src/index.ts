@@ -20,7 +20,7 @@ interface Draftee {
 
     // 
     log(`Opening page... [ ${url} ]`)
-    await page.goto(url);
+    await page.goto(url, { waitUntil: "domcontentloaded" });
     const draftees  = await page.$$eval(".topic-row td:nth-of-type(3)", get_draftees_from_row_nodes);
 
     //
